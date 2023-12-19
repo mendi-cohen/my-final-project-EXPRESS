@@ -8,32 +8,29 @@ class UsersControll{
     }
 
 
-    async  saveUser(req, res) {
-
+    async saveUser(req, res) {
       try {
         // validation
-
-        const validateDB = await Users.validUser(req.body)
-        if(validateDB.error){
-          return res.status(400).json(validateDB.error.message)
+        const validateDB = await Users.validUser(req.body);
+        if (validateDB.error) {
+          return res.status(400).json(validateDB.error.message);
         }
-
+    
         // check email
-
         const existingUser = await Users.findByEmail(req.body.email);
-       if (existingUser[0]?.email.length > 0) {
-        return res.status(400).json({ error: "Email already exists" });
-    }
-     
-    // save the user
-
-          await Users.save(req.body);
-          res.json({ "add user": "successfully" });
+        if (existingUser && existingUser.length > 0) {
+          return res.status(400).json({ error: "Email already exists" });
+        }
+    
+        // save the user
+        await Users.save(req.body);
+        res.json({ "add user": "successfully" });
       } catch (error) {
-          console.error('Error saving user:', error);
-          res.status(500).json({ "error": "Internal Server Error" });
+        console.error('Error saving user:', error);
+        res.status(500).json({ "error": "Internal Server Error" });
       }
-  }
+    }
+    
   
 
     async findOne(req, res){

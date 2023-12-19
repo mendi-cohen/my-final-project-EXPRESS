@@ -13,23 +13,25 @@ const port  = process.env.PORT ;
 
 app.use("/" , Users)
 
-// app.use(express.static( '../final-project-react/my-final-project/src/App.jsx'));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//app.use(express.static( '../final-project-react/my-final-project/src/App.jsx'));
 
 // app.get('/', (req, res) => {
 //   res.sendFile(path.join(__dirname,"final-project-react/my-final-project/src" , 'app.jsx'));
 // }); 
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 // port
