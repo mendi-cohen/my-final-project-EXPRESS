@@ -1,17 +1,20 @@
 const DB = require('../config/DB');
+const Joi = require('joi');
 
 class users {
-    // constructor(user_ID , userName, email){
-    //     this.user_ID = user_ID;
-    //     this.userName = userName;
-    //     this.email = email;
-    // }
 
 
    async save(Data){
     let sql = `INSERT INTO Users SET ?`;
-    const [result,_] = await DB.query(sql , [Data]);
-    return result;
+    try {
+        const result = await DB.query(sql , [Data]);
+        return result[0];
+
+    } catch (e) {
+        console.error(e.stack);
+        return (1)
+    }
+  
 }
 
      async findAll(){
@@ -33,9 +36,22 @@ class users {
     
         return result;
     }
-   async updateUsers(id, newUser_ID, newUserName, newEmail) {
-    const sql = `UPDATE users SET user_ID = ?, userName = ?, email = ? WHERE id = ?`;
-    return DB.query(sql, [newUser_ID, newUserName, newEmail, id]);
+   async updateUsers(id, newUserName, newEmail) {
+    const sql = `UPDATE users SET  userName = ?, email = ? WHERE id = ?`;
+    return DB.query(sql, [ newUserName, newEmail, id]);
+}
+
+async findByEmail(email){
+    let sql = `SELECT email FROM Users WHERE email = ?`;
+ const [result] = await DB.execute(sql , [email]);
+ return result;
+}
+ async validUser(response){
+const userSchema = Joi.object({
+  userName: Joi.string().required().min(2), 
+  email: Joi.string().required().email().min(2),  
+})
+return userSchema.validate(response);
 }
 
       
