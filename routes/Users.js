@@ -7,5 +7,6 @@ router.post('/adduser' , Controll.saveUser)
 router.get('/users/:id', Controll.findOne)
 router.delete('/users/:id', Controll.delfunc)
 router.put('/users/:id', Controll.update)
+router.get('/findByEmail/', Controll.findTheEmail)
 
 module.exports = router;

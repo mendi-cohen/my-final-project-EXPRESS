@@ -8,28 +8,7 @@ class UsersControll{
     }
 
 
-    async saveUser(req, res) {
-      try {
-        // validation
-        const validateDB = await Users.validUser(req.body);
-        if (validateDB.error) {
-          return res.status(400).json(validateDB.error.message);
-        }
-    
-        // check email
-        const existingUser = await Users.findByEmail(req.body.email);
-        if (existingUser && existingUser.length > 0) {
-          return res.status(400).json({ error: "Email already exists" });
-        }
-    
-        // save the user
-        await Users.save(req.body);
-        res.json({ "add user": "successfully" });
-      } catch (error) {
-        console.error('Error saving user:', error);
-        res.status(500).json({ "error": "Internal Server Error" });
-      }
-    }
+
     
   
 
@@ -51,7 +30,55 @@ class UsersControll{
       const [NewUser, _] = await Users.updateUsers(id, userName, email);
       res.json({ "NewUser": "yesss" });
     }
+
+
+
+
+
+
+
+    // Sign in user 
+
+    async saveUser(req, res) {
+      try {
+        // validation
+        const validateDB = await Users.validUser(req.body);
+        if (validateDB.error) {
+          return res.status(400).json(validateDB.error.message);
+        }
     
-    }
+        // check email
+        const existingUser = await Users.findByEmail(req.body.email);
+        if (existingUser && existingUser.length > 0) {
+          return res.status(400).json({ error: "Email already exists" });
+        }
+    
+        // save the user
+        await Users.save(req.body);
+        res.json({ "add user": "successfully" });
+      } catch (error) {
+        console.error('Error saving user:', error);
+        res.status(500).json({ "error": "Internal Server Error" });
+      }
+    }    
+
+
+    //Login user if is email exsist
+
+
+    async findTheEmail(req, res) {
+      try {
+        const existsEmail = await Users.findByEmail(req.query.email);
+    
+        if (existsEmail && existsEmail.length > 0) {
+          return res.status(200).json({ success: "Email found" });
+        } else {
+          return res.status(404).json({ error: "Email not found!" });
+        }
+      } catch (error) {
+        console.error("Error in findTheEmail:", error);
+        return res.status(500).json({ error: "Internal Server Error" });
+      }
+    }}
 
     module.exports = new UsersControll();
