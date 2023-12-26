@@ -1,4 +1,7 @@
 const Users = require("../model/Users")
+const jwt = require('jsonwebtoken');
+const secretKey = 'lod123';
+
 
 class UsersControll{
     
@@ -38,6 +41,7 @@ class UsersControll{
 
 
     // Sign in user 
+    
 
     async saveUser(req, res) {
       try {
@@ -63,15 +67,21 @@ class UsersControll{
     }    
 
 
-    //Login user if is email exsist
+    //Login user if is email exsist and create tokens
+
+    
 
 
-    async findTheEmail(req, res) {
+    async Login(req, res) {
       try {
         const existsEmail = await Users.findByEmail(req.query.email);
     
         if (existsEmail && existsEmail.length > 0) {
-          return res.status(200).json({ success: "Email found" });
+          const user = existsEmail[0];
+          const payload = { user_Id: user.id,user_Name: user.userName, user_Email: user.email };
+          const token = jwt.sign(payload, secretKey );
+          const set_token = await Users.enterToken( token , user.email )
+          return res.status(200).json({ success: "Login successful", token });
         } else {
           return res.status(404).json({ error: "Email not found!" });
         }
@@ -80,5 +90,5 @@ class UsersControll{
         return res.status(500).json({ error: "Internal Server Error" });
       }
     }}
-
+ 
     module.exports = new UsersControll();

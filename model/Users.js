@@ -4,18 +4,7 @@ const Joi = require('joi');
 class users {
 
 
-   async save(Data){
-    let sql = `INSERT INTO Users SET ?`;
-    try {
-        const result = await DB.query(sql , [Data]);
-        return result[0];
 
-    } catch (e) {
-        console.error(e.stack);
-        return (1)
-    }
-  
-}
 
      async findAll(){
         let sql = `SELECT * FROM Users`
@@ -41,6 +30,28 @@ class users {
     return DB.query(sql, [ newUserName, newEmail, id]);
 }
 
+
+
+
+/////////////////////
+
+
+
+async save(Data){
+  let sql = `INSERT INTO Users SET ?`;
+  try {
+      const result = await DB.query(sql , [Data]);
+      return result[0];
+
+  } catch (e) {
+      console.error(e.stack);
+      return (1)
+  }
+
+}
+
+
+
 async findByEmail(email){
     let sql = `SELECT email FROM Users WHERE email = ?`;
  const [result] = await DB.execute(sql , [email]);
@@ -53,6 +64,37 @@ const userSchema = Joi.object({
 })
 return userSchema.validate(response);
 }
+
+// async enterToken(TOKEN,email ) {
+//     const sql = 'UPDATE users SET TOKEN = ? WHERE email = ?';
+//     return DB.query(sql, [TOKEN, email]);
+//   }
+  
+async enterToken(TOKEN, email ) {
+    try {
+        const expirationTime = new Date();
+    
+        const sql = 'UPDATE users SET TOKEN = ?, TOKEN_TIME = ? WHERE email = ?';
+        await DB.query(sql, [TOKEN, expirationTime, email]);
+    
+        // setTimeout(async () => {
+        //   try {
+        //     const deleteSql = 'UPDATE users SET TOKEN = NULL, TOKEN_TIME = NULL WHERE email = ?';
+        //     await DB.query(deleteSql, [email]);
+        //     console.log('Token deleted successfully after 10 seconds');
+        //   } catch (error) {
+        //     console.error('Error deleting token:', error);
+        //   }
+        // }, 10000); 
+        // return { success: true, message: 'Token updated successfully' };
+
+
+      } catch (error) {
+        console.error('Error updating token:', error);
+        return { success: false, message: 'Error updating token' };
+      }
+    }
+  
 
       
 } 

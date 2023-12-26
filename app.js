@@ -15,18 +15,6 @@ app.use("/" , Users)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 //app.use(express.static( '../final-project-react/my-final-project/src/App.jsx'));
 
 // app.get('/', (req, res) => {
