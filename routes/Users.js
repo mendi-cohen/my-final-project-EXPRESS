@@ -6,7 +6,9 @@ router.get('/users', Controll.Allusers)
 router.get('/users/:id', Controll.findOne)
 router.delete('/users/:id', Controll.delfunc)
 router.put('/users/:id', Controll.update)
-router.post('/adduser' , Controll.saveUser)
+router.post('/postuser' , Controll.saveUser)
 router.get('/login/', Controll.Login)
+router.delete('/loginoff/:email', Controll.loginOff)
+
 
 module.exports = router;

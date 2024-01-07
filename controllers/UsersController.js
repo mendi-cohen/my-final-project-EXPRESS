@@ -1,6 +1,6 @@
-const Users = require("../model/Users")
+const Users = require("../model/Users");
 const jwt = require('jsonwebtoken');
-const secretKey = 'lod123';
+
 
 
 class UsersControll{
@@ -78,10 +78,12 @@ class UsersControll{
     
         if (existsEmail && existsEmail.length > 0) {
           const user = existsEmail[0];
-          const payload = { user_Id: user.id,user_Name: user.userName, user_Email: user.email };
-          const token = jwt.sign(payload, secretKey );
-          const set_token = await Users.enterToken( token , user.email )
-          return res.status(200).json({ success: "Login successful", token });
+          const payload = { user_Id: user.id , user_Name: user.userName , user_Email: user.email };
+          const token = jwt.sign(payload,process.env.SECRET_KEY );
+          const loginTime = new Date();
+          const set_token = await Users.enterToken( user.id , loginTime, loginTime , token )
+          const loginName = user.userName;
+          return res.status(200).json({ success: "Login successful", token , loginName});
         } else {
           return res.status(404).json({ error: "Email not found!" });
         }
@@ -89,6 +91,23 @@ class UsersControll{
         console.error("Error in findTheEmail:", error);
         return res.status(500).json({ error: "Internal Server Error" });
       }
-    }}
+    }
+
+    // user off
+  
+    async loginOff(req, res) {
+      try {
+        const userEmail = req.params.email;
+        const connect_off = new Date()
+        const reset = await Users.deleteLog( connect_off,userEmail);
+        return res.status(200).json({ "success": true });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    
+  
+  
+  }
  
     module.exports = new UsersControll();
