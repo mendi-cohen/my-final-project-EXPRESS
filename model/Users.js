@@ -57,11 +57,11 @@ class users {
 
 
 
-  async enterToken(user_id, loginTime,loginDate, token) {
+  async enterToken(user_id, loginTime,loginDate,off, token) {
     try {
       const sql =
-        "INSERT INTO Users_Log (user_id, connect_time , connect_date , token) VALUES (?, ?, ?, ?)";
-      await DB.query(sql, [user_id, loginTime,loginDate, token]);
+        "INSERT INTO Users_Log (user_id, connect_time , connect_date ,connect_off, token) VALUES (?, ?, ?, ? , ?)";
+      await DB.query(sql, [user_id, loginTime,loginDate , off, token]);
     } catch (error) {
       console.error("Error deleting token:", error);
     }
@@ -74,6 +74,13 @@ class users {
     WHERE Users.email = ?;`;
     ;
     return DB.query(sql, [connect_off, userEmail ]);
+  }
+
+  async showLog(){
+    const sql = `SELECT Users.userName, Users_Log.*
+    FROM Users_Log
+    INNER JOIN Users ON Users.id = Users_Log.user_id;`;
+    return await DB.query(sql);
   }
   
  

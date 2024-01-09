@@ -6,8 +6,23 @@ const jwt = require('jsonwebtoken');
 class UsersControll{
     
     async Allusers (req, res){
-    const [usersFdb ,_] = await Users.findAll() 
-    res.json({usersFdb})    
+      try {
+        const [usersFdb ,_] = await Users.findAll() 
+        res.json({usersFdb})
+
+      } catch (error) {
+        console.log(error.message);
+      }
+    }
+
+
+    async Alllogin(req, res){
+    try {
+      const [loginFdb ,_] = await Users.showLog() 
+      res.json({loginFdb})
+    } catch (error) {
+      console.log(error.message);
+    }
     }
 
 
@@ -81,7 +96,8 @@ class UsersControll{
           const payload = { user_Id: user.id , user_Name: user.userName , user_Email: user.email };
           const token = jwt.sign(payload,process.env.SECRET_KEY );
           const loginTime = new Date();
-          const set_token = await Users.enterToken( user.id , loginTime, loginTime , token )
+          const off =  'none';
+          const set_token = await Users.enterToken( user.id , loginTime, loginTime ,off, token )
           const loginName = user.userName;
           return res.status(200).json({ success: "Login successful", token , loginName});
         } else {
@@ -99,7 +115,8 @@ class UsersControll{
       try {
         const userEmail = req.params.email;
         const connect_off = new Date()
-        const reset = await Users.deleteLog( connect_off,userEmail);
+        console.log(connect_off);
+        const reset = await Users.deleteLog( connect_off , userEmail);
         return res.status(200).json({ "success": true });
       } catch (error) {
         console.log(error);
