@@ -46,6 +46,8 @@ class users {
     const [result] = await DB.execute(sql, [email]);
     return result;
   }
+
+  
   async validUser(response) {
     const userSchema = Joi.object({
       userName: Joi.string().required().min(2),

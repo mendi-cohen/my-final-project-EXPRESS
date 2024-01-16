@@ -13,10 +13,10 @@ class FormsController {
         },
         from: 'mcrambam770@gmail.com',
         to: toEmail,
-        subject: 'Hey you, awesome!',
-        html: '<b>This is bold text</b>',
+        subject: '!  ב"ה הצלחתי לשלוח לך אימייל מהאפליקציה ',
+        html: 'בדיקת שליחת האימייל ',
         text: 'This is text version!',
-        replyTo: 'receiverXXX@gmail.com',
+        replyTo: 'mcrambam770@gmail.com',
         
         onError: (e) => {
           console.log(e);

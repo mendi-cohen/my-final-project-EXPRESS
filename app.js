@@ -6,13 +6,15 @@ const path = require('path');
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-const Users = require('./routes/Users')
-const Forms = require('./routes/Emails')
+const Users = require('./routes/Users_Routes')
+const Email = require('./routes/Emails_Routes')
+const Forms = require('./routes/Forms_Routes')
 
 const port  = process.env.PORT ;
 
 app.use("/" , Users)
 app.use("/forms", Forms )
+app.use("/email" , Email)
 
 
 
