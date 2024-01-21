@@ -1,13 +1,14 @@
 const DB = require("../config/DB");
 const Joi = require("joi");
 
-class Forms {
+class Articels {
  
    async validArticle(response) {
          const ArtSchema = Joi.object({
             title: Joi.string().required().min(2),
             art_value: Joi.string().required().min(20),
             date: Joi.string().required().min(2),
+            time: Joi.string().required(),
          }); 
         return await ArtSchema.validateAsync(response);
    }
@@ -22,6 +23,13 @@ class Forms {
          return error;
       }
    }
+
+   async GetArticel(){
+   const sql = `SELECT * FROM articels ORDER BY time DESC`;
+   const result = await DB.query(sql);
+   return result;
 }
 
-module.exports = new Forms();
+}
+
+module.exports = new Articels();

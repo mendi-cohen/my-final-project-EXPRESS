@@ -1,6 +1,6 @@
 const nodeoutlook = require('nodejs-nodemailer-outlook');
 
-class FormsController {
+class EmailController {
   async sendEmail(req, res) {
   
     const { toEmail, messageBody } = req.body;
@@ -34,4 +34,4 @@ class FormsController {
   }
 }
 
-module.exports = new FormsController();
+module.exports = new EmailController();

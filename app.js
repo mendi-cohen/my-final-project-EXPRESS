@@ -8,12 +8,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 const Users = require('./routes/Users_Routes')
 const Email = require('./routes/Emails_Routes')
-const Forms = require('./routes/Forms_Routes')
+const Articels = require('./routes/Articels_Routes')
 
 const port  = process.env.PORT ;
 
 app.use("/" , Users)
-app.use("/forms", Forms )
+app.use("/Articels", Articels )
 app.use("/email" , Email)
 
 

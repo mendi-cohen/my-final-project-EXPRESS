@@ -1,24 +1,38 @@
-const Form = require('../model/Forms');
+const Art = require('../model/Articels');
 
-class FormControl {
+class ArticelsControl {
 
     async sendArticle(req, res) {
         try {
             // Validation
-            const validateDB = await Form.validArticle(req.body);
+            const validateDB = await Art.validArticle(req.body);
             if (validateDB.error) {
                 const errorMessage = validateDB.error.details[0].message;
                 return res.status(400).json({ error: errorMessage });
             }
             // Save the Article
-            await Form.SaveArticle(req.body);
+            await Art.SaveArticle(req.body);
             res.status(201).json({ message: "Article added successfully" });
         
         } catch (error) {
             console.error('Error saving article:', error);
             res.status(400).json({ error: error.message });
         }
-    }
-}
 
-module.exports = new FormControl();
+
+        
+    }
+    async GetArticel(req, res) {
+        try {
+            const [ArtFdb ,_] = await Art.GetArticel() 
+            res.json({ArtFdb})
+            console.log(ArtFdb);
+    
+          } catch (error) {
+            console.log(error.message);
+          }
+        }
+    }
+
+
+module.exports = new ArticelsControl();
