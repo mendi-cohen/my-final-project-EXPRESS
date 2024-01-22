@@ -6,6 +6,7 @@ class Articels {
    async validArticle(response) {
          const ArtSchema = Joi.object({
             title: Joi.string().required().min(2),
+            second_title: Joi.string().required().min(5),
             art_value: Joi.string().required().min(20),
             date: Joi.string().required().min(2),
             time: Joi.string().required(),
@@ -27,6 +28,12 @@ class Articels {
    async GetArticel(){
    const sql = `SELECT * FROM articels ORDER BY time DESC`;
    const result = await DB.query(sql);
+   return result;
+}
+
+async GetOneType(title){
+   const sql = `SELECT * FROM articels WHERE title = ?`;
+   const result = await DB.query(sql , [title]);
    return result;
 }
 

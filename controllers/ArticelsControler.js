@@ -26,11 +26,24 @@ class ArticelsControl {
         try {
             const [ArtFdb ,_] = await Art.GetArticel() 
             res.json({ArtFdb})
-            console.log(ArtFdb);
+            
     
           } catch (error) {
             console.log(error.message);
           }
+        }
+
+        async GetOneType(req, res) {
+            try {
+                const title = req.params.title
+                const [oneType , _] = await Art.GetOneType(title);
+                res.json({oneType})
+                console.log(oneType);
+                
+            } catch (error) {
+            console.log(error.message);
+                
+            }
         }
     }
 
