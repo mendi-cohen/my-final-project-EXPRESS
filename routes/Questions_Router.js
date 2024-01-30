@@ -3,7 +3,7 @@ const router = express.Router();
 const Controll = require('../controllers/QuestionsController');
 
 router.post ('/sendQuestion' , Controll.sendQuestion)
-router.get ('/GetQuestion' , Controll.GetQuestions)
+router.get ('/GetQuestions' , Controll.GetQuestions)
 
 
 

@@ -18,7 +18,7 @@
     "joi": "^17.11.0",
     "jsonwebtoken": "^9.0.2",
     "luxon": "^3.4.4",
-    "mysql2": "^3.6.5",
+    "mysql2": "^3.9.1",
     "node-cron": "^3.0.3",
     "nodejs-nodemailer-outlook": "^1.2.4",
     "nodemailer": "^6.9.8",

@@ -36,9 +36,8 @@ class ArticelsControl {
         async GetOneType(req, res) {
             try {
                 const title = req.params.title
-                const [oneType , _] = await Art.GetOneType(title);
+                const [oneType , _] = await Art.GetOneTypee(title);
                 res.json({oneType})
-                console.log(oneType);
                 
             } catch (error) {
             console.log(error.message);

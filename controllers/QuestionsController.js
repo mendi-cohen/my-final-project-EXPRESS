@@ -20,9 +20,6 @@ class QuestionsController {
         }
         
     }
-
-
-
     async GetQuestions(req, res) {
    try {
     const [getTheQuestion,_] = await Quest.GetQuestions();

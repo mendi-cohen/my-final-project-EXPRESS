@@ -6,16 +6,16 @@ const path = require('path');
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-const Users = require('./routes/Users_Routes')
-const Email = require('./routes/Emails_Routes')
-const Articels = require('./routes/Articels_Routes')
+const Users = require('./routes/Users_Router')
+const Email = require('./routes/Emails_Router')
+const Articles = require('./routes/Articles_Router')
 const Question = require('./routes/Questions_Router')
-const WhatsApp = require('./routes/WhatsApp_Routes')
+const WhatsApp = require('./routes/WhatsApp_Router')
 
 const port  = process.env.PORT ;
 
 app.use("/" , Users)
-app.use("/Articels", Articels )
+app.use("/Articles", Articles )
 app.use("/email" , Email)
 app.use("/question" , Question)
 app.use("/whatsapp" , WhatsApp)

@@ -1,43 +1,75 @@
-const DB = require("../config/DB");
+const { DataTypes } = require('sequelize');
+const sequelize = require('../config/DB');
 const Joi = require("joi");
 
+const Question = sequelize.define('Question', {
+   title: {
+     type: DataTypes.STRING,
+     allowNull: false,
+   },
+   chekbox: {
+     type: DataTypes.STRING,
+     allowNull: false,
+   },
+   Question_value: {
+     type: DataTypes.STRING,
+     allowNull: false,
+   },
+   date: {
+     type: DataTypes.STRING,
+     allowNull: false,
+   },
+   time: {
+     type: DataTypes.STRING,
+     allowNull: false,
+   },
+   additionalInfo: {
+     type: DataTypes.STRING,
+     allowNull: false,
+   },
+ }, { 
+   tableName: 'questions',
+   timestamps: false, 
+ });
+
 class Questions {
- 
-   async validQuestion(response) {
-         const ArtSchema = Joi.object({
-            title: Joi.string().required().min(2),
-            chekbox: Joi.required(),
-            Question_value: Joi.string().required().min(20),
-            date: Joi.string().required().min(2),
-            time: Joi.string().required(),
-         }); 
-        return await ArtSchema.validateAsync(response);
-   }
+  async validQuestion(response) {
+    const ArtSchema = Joi.object({
+      title: Joi.string().required().min(2),
+      chekbox: Joi.required(),
+      Question_value: Joi.string().required().min(10),
+      additionalInfo: Joi.required(),
+      date: Joi.date().required(), 
+      time: Joi.string().required(),
+    });
 
-   async SaveQuestion(data) {
-      const sql = `INSERT INTO questions SET ?`;
-      try {
-         const result = await DB.query(sql, [data]);
-         return result;
-      } catch (error) {
-         console.error(error.stack);
-         return error;
+    return await ArtSchema.validateAsync(response);
+  }
+
+  async SaveQuestion(data) {
+    try {
+      const validation = await this.validQuestion(data);
+      if (validation.error) {
+        throw new Error(validation.error.details[0].message);
       }
-   }
 
-   async GetQuestions(){
-   const sql = `SELECT * FROM questions ORDER BY time DESC`;
-   const result = await DB.query(sql);
-   return result;
-}
+      const result = await Question.create(data);
+      return result;
+    } catch (error) {
+      console.error(error.stack);
+      return error;
+    }
+  }
 
-async GetOneType(title){
-   const sql = `SELECT * FROM questions WHERE title = ?`;
-   const result = await DB.query(sql , [title]);
-   return result;
-}
-
-
+  async GetQuestions() {
+    try {
+      const result = await Question.findAll({ order: [['time', 'DESC']] });
+      return [result];
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  }
 
 }
 
