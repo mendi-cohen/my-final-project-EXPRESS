@@ -1,8 +1,8 @@
-const { DataTypes, Sequelize } = require('sequelize');
+const { DataTypes } = require('sequelize');
 const sequelize = require('../config/DB');
 const Joi = require('joi');
 
-const Article = sequelize.define('articels', {
+const Article = sequelize.define('Articels', {
   title: {
     type: DataTypes.STRING,
     allowNull: false,
