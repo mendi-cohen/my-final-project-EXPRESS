@@ -2,6 +2,9 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../config/DB');
 const Joi = require("joi");
 
+/// הקמת הטבלאות במקרה של מחיקה 
+sequelize.sync();
+
 const Question = sequelize.define('Question', {
    title: {
      type: DataTypes.STRING,
@@ -31,6 +34,7 @@ const Question = sequelize.define('Question', {
    tableName: 'questions',
    timestamps: false, 
  });
+
 
 class Questions {
   async validQuestion(response) {

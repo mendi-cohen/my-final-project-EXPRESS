@@ -1,53 +1,77 @@
-const DB = require("../config/DB");
+const { DataTypes } = require('sequelize');
+const sequelize = require("../config/DB");
 const Joi = require("joi");
 
-class users {
+const User = sequelize.define('User', {
+  userName: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  email: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    unique: true,
+  },
+}, {
+  tableName: 'Users',
+  timestamps: false,
+});
+
+
+class Users {
   async findAll() {
-    let sql = `SELECT * FROM Users`;
-    return await DB.execute(sql);
+    return await User.findAll();
   }
 
   async findById(id) {
-    const sql = `SELECT * FROM Users WHERE id = ?`;
-    return await DB.execute(sql, [id]);
+    return await User.findByPk(id);
   }
 
   async findAndDelete(id) {
-    if (id === 0) {
+    const userToDelete = await User.findByPk(id);
+    if (!userToDelete) {
       return "not found!";
     }
-    const sqlDelete = `DELETE FROM Users WHERE id = ?`;
-    await DB.execute(sqlDelete, [id]);
 
-    return result;
+    await userToDelete.destroy();
+    return "deleted successfully";
   }
+
   async updateUsers(id, newUserName, newEmail) {
-    const sql = `UPDATE users SET  userName = ?, email = ? WHERE id = ?`;
-    return DB.query(sql, [newUserName, newEmail, id]);
+    const userToUpdate = await User.findByPk(id);
+    if (!userToUpdate) {
+      return "not found!";
+    }
+
+    userToUpdate.userName = newUserName;
+    userToUpdate.email = newEmail;
+    await userToUpdate.save();
+    return "updated successfully";
   }
 
-  /////////////////////
-
-  async save(Data) {
-    let sql = `INSERT INTO Users SET ?`;
+  async save(data) {
     try {
-      const result = await DB.query(sql, [Data]);
-      return result[0];
-    } catch (e) {
-      console.error(e.stack);
-      return 1;
+      const validation = await this.validUser(data);
+      if (validation.error) {
+        throw new Error(validation.error.details[0].message);
+      }
+
+      const result = await User.create(data);
+      return result;
+    } catch (error) {
+      console.error(error.stack);
+      return error;
     }
   }
 
-
-
   async findByEmail(email) {
-    let sql = `SELECT * FROM Users WHERE email = ?`;
-    const [result] = await DB.execute(sql, [email]);
-    return result;
+    return await User.findOne({
+      where: {
+        email: email
+      }
+    });
   }
 
-  
   async validUser(response) {
     const userSchema = Joi.object({
       userName: Joi.string().required().min(2),
@@ -56,16 +80,13 @@ class users {
     return userSchema.validate(response);
   }
 
-
-
-
-  async enterToken(user_id, loginTime,loginDate,off, token) {
+  async enterToken(user_id, loginTime, loginDate, off, token) {
     try {
       const sql =
         "INSERT INTO Users_Log (user_id, connect_time , connect_date ,connect_off, token) VALUES (?, ?, ?, ? , ?)";
-      await DB.query(sql, [user_id, loginTime,loginDate , off, token]);
+      await sequelize.query(sql, [user_id, loginTime, loginDate, off, token]);
     } catch (error) {
-      console.error("Error deleting token:", error);
+      console.error("Error entering token:", error);
     }
   }
 
@@ -74,23 +95,16 @@ class users {
     INNER JOIN Users ON Users_Log.user_id = Users.id
     SET Users_Log.token = 'NULL', Users_Log.connect_off = ?
     WHERE Users.email = ?;`;
-    ;
-    return DB.query(sql, [connect_off, userEmail ]);
+
+    return sequelize.query(sql, [connect_off, userEmail]);
   }
 
-  async showLog(){
+  async showLog() {
     const sql = `SELECT Users.userName, Users_Log.*
     FROM Users_Log
     INNER JOIN Users ON Users.id = Users_Log.user_id;`;
-    return await DB.query(sql);
+    return await sequelize.query(sql);
   }
-  
- 
-
-
-
-  // אם לא מפעילים את הקלאס
-  //  צריך להפוך את הפונקציות לסטטיות
-  // על מנת שיוכלו לעבוד במקומות אחרים
 }
-module.exports = new users();
+
+module.exports = new Users();

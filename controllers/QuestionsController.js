@@ -23,7 +23,6 @@ class QuestionsController {
     async GetQuestions(req, res) {
    try {
     const [getTheQuestion,_] = await Quest.GetQuestions();
-    console.log(getTheQuestion);
     res.json ({getTheQuestion});
 
 
