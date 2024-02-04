@@ -2,6 +2,8 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../config/DB');
 const Joi = require('joi');
 
+sequelize.sync();
+
 const Article = sequelize.define('articels', {
   title: {
     type: DataTypes.STRING,
