@@ -30,7 +30,7 @@ class Users {
   async findAndDelete(id) {
     const userToDelete = await User.findByPk(id);
     if (!userToDelete) {
-      return "not found!";
+      return "not found!!";
     }
 
     await userToDelete.destroy();
