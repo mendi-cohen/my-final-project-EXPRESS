@@ -40,7 +40,7 @@ class Users {
   async updateUsers(id, newUserName, newEmail) {
     const userToUpdate = await User.findByPk(id);
     if (!userToUpdate) {
-      return "not found!";
+      return "not found!!";
     }
 
     userToUpdate.userName = newUserName;
