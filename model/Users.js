@@ -2,7 +2,7 @@ const { DataTypes } = require('sequelize');
 const sequelize = require("../config/DB");
 const Joi = require("joi");
 
-const User = sequelize.define('Users', {
+const User = sequelize.define('users', {
   userName: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -13,7 +13,7 @@ const User = sequelize.define('Users', {
     unique: true,
   },
 }, {
-  tableName: 'Users',
+  tableName: 'users',
   timestamps: false,
 });
 
