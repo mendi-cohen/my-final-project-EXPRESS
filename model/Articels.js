@@ -2,7 +2,7 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../config/DB');
 const Joi = require('joi');
 
-const Article = sequelize.define('Articels', {
+const Article = sequelize.define('articels', {
   title: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -69,7 +69,7 @@ class Articles {
 async GetOneTypee(title) {
     try {
         const result = await Article.findOne({ where: { title }, raw: true });
-        return [result]; // החזרת תוצאה כמערך עם פריט אחד
+        return [result]; 
     } catch (error) {
         console.error('Error getting article by title:', error);
         throw error;
