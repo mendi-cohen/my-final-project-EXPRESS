@@ -11,6 +11,7 @@ const Email = require('./routes/Emails_Router')
 const Articles = require('./routes/Articles_Router')
 const Question = require('./routes/Questions_Router')
 const WhatsApp = require('./routes/WhatsApp_Router')
+const Enswers = require('./routes/Enswers_Router')
 
 const port  = process.env.PORT ;
 
@@ -19,6 +20,7 @@ app.use("/Articles", Articles )
 app.use("/email" , Email)
 app.use("/question" , Question)
 app.use("/whatsapp" , WhatsApp)
+app.use("/enswers" , Enswers)
 
 
 

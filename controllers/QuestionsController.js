@@ -10,7 +10,6 @@ class QuestionsController {
                 const errorMessage = validateDB.error.details[0].message;
                 return res.status(400).json({ error: errorMessage });
             }
-            // Save the Article
             await Quest.SaveQuestion(req.body);
             res.status(201).json({ message: "Question added successfully" });
         
