@@ -18,11 +18,11 @@ const Article = sequelize.define('articles', {
     allowNull: false,
   },
   date: {
-    type: DataTypes.DATEONLY,
+    type: DataTypes.STRING,
     allowNull: false,
   },
   time: {
-    type: DataTypes.TIME,
+    type: DataTypes.STRING,
     allowNull: false,
   },
 }, {
