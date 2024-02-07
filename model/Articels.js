@@ -50,7 +50,7 @@ class Articles {
         throw new Error(validation.error.details[0].message);
       }
 
-      const result = await Article.create(data, { raw: true });
+      const result = await Article.create(data);
       return result;
     } catch (error) {
       console.error(error.stack);
@@ -70,7 +70,7 @@ class Articles {
 
 async GetOneTypee(title) {
     try {
-        const result = await Article.findOne({ where: { title }, raw: true });
+        const result = await Article.findAll({ where: { title } });
         return [result]; 
     } catch (error) {
         console.error('Error getting article by title:', error);

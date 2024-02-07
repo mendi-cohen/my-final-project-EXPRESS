@@ -1,3 +1,4 @@
+const { on } = require('nodemailer/lib/xoauth2');
 const Art = require('../model/Articels');
 
 class ArticelsControl {
@@ -37,6 +38,7 @@ class ArticelsControl {
             try {
                 const title = req.params.title
                 const [oneType , _] = await Art.GetOneTypee(title);
+                console.log(oneType)
                 res.json({oneType})
                 
             } catch (error) {

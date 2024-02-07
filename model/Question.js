@@ -3,7 +3,7 @@ const sequelize = require('../config/DB');
 const Joi = require("joi");
 
 /// הקמת הטבלאות במקרה של מחיקה 
-sequelize.sync();
+// sequelize.sync();
 
 const Question = sequelize.define('Question', {
    title: {
