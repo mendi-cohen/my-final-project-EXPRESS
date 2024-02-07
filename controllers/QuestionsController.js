@@ -14,7 +14,7 @@ class QuestionsController {
             res.status(201).json({ message: "Question added successfully" });
         
         } catch (error) {
-            console.error('Error saving article:', error);
+            console.error('Error saving question:', error);
             res.status(400).json({ error: error.message });
         }
         
