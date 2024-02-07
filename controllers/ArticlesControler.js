@@ -1,5 +1,5 @@
 const { on } = require('nodemailer/lib/xoauth2');
-const Art = require('../model/Articels');
+const Art = require('../model/Articles');
 
 class ArticelsControl {
 

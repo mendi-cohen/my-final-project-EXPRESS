@@ -4,7 +4,7 @@ const Joi = require('joi');
 
 sequelize.sync();
 
-const Article = sequelize.define('articels', {
+const Article = sequelize.define('articles', {
   title: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -26,7 +26,7 @@ const Article = sequelize.define('articels', {
     allowNull: false,
   },
 }, {
-  tableName: 'articels',
+  tableName: 'articles',
   timestamps: false,
 });
 
