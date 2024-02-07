@@ -18,7 +18,7 @@ const Article = sequelize.define('articles', {
     allowNull: false,
   },
   date: {
-    type: DataTypes.DATE,
+    type: DataTypes.DATEONLY,
     allowNull: false,
   },
   time: {
