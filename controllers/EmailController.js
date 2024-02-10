@@ -13,8 +13,7 @@ class EmailController {
         },
         from: 'mcrambam770@gmail.com',
         to: toEmail,
-        subject: '!  ב"ה הצלחתי לשלוח לך אימייל מהאפליקציה ',
-        html: 'בדיקת שליחת האימייל ',
+        html: messageBody,
         text: 'This is text version!',
         replyTo: 'mcrambam770@gmail.com',
         
