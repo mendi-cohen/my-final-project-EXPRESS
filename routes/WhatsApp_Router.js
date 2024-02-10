@@ -4,7 +4,7 @@ const WhatsApp = require('../controllers/WhatsAppController');
 
 
 router.post('/send-whatsApp', WhatsApp.sendWhatsApp);
-// router.post('/send-whatsApp-enswer', WhatsApp.sendWhatsAppEnswer);
+router.post('/send-whatsApp-enswer', WhatsApp.sendWhatsAppEnswer);
 
 
 module.exports = router;
