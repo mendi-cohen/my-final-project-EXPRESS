@@ -29,6 +29,7 @@ class Enswers {
   async SaveEnswer(data) {
     try {
       const result = await Enswer.create(data);
+      console.log(result);
       return result;
     } catch (error) {
       console.error(error.stack);

@@ -10,6 +10,7 @@ class EnswersController {
         } catch (error) {
             console.error('Error saving enswer:', error);
             res.status(400).json({ error: error.message });
+            console.log("noGodd");
         }
         
     }
