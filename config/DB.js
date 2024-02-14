@@ -1,5 +1,4 @@
 const { Sequelize } = require('sequelize');
-const { FORCE } = require('sequelize/types/index-hints');
 require('dotenv').config();
 
 const sequelize = new Sequelize(process.env.DATABASE, process.env.USER, process.env.PASSWORD, {
