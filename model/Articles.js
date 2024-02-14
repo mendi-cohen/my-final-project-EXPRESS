@@ -2,9 +2,9 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../config/DB');
 const Joi = require('joi');
 
-sequelize.sync();
 
-const Article = sequelize.define('articles', {
+
+const Article = sequelize.define('Article', {
   title: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -25,9 +25,6 @@ const Article = sequelize.define('articles', {
     type: DataTypes.STRING,
     allowNull: false,
   },
-}, {
-  tableName: 'articles',
-  timestamps: false,
 });
 
 class Articles {
@@ -51,6 +48,7 @@ class Articles {
       }
 
       const result = await Article.create(data);
+      console.log(result);
       return result;
     } catch (error) {
       console.error(error.stack);

@@ -3,7 +3,7 @@ const sequelize = require('../config/DB');
 const Joi = require("joi");
 
 /// הקמת הטבלאות במקרה של מחיקה 
-sequelize.sync();
+
 
 const Question = sequelize.define('Question', {
    title: {
@@ -30,9 +30,6 @@ const Question = sequelize.define('Question', {
      type: DataTypes.STRING,
      allowNull: false,
    },
- }, { 
-   tableName: 'questions',
-   timestamps: false, 
  });
 
 
@@ -67,7 +64,7 @@ class Questions {
 
   async GetQuestions() {
     try {
-      const result = await Question.findAll({ order: [['time', 'ASC']] });
+      const result = await Question.findAll({ order: [['time', 'DESC']] });
       return [result];
     } catch (error) {
       console.log(error);

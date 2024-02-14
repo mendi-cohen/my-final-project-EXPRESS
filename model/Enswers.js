@@ -3,9 +3,9 @@ const sequelize = require('../config/DB');
 
 
 /// הקמת הטבלאות במקרה של מחיקה 
-sequelize.sync();
 
-const Enswer = sequelize.define('Enswers', {
+
+const Enswer = sequelize.define('Enswer', {
    Question_value: {
      type: DataTypes.STRING,
      allowNull: false,
@@ -18,9 +18,6 @@ const Enswer = sequelize.define('Enswers', {
      type: DataTypes.STRING,
      allowNull: false,
    },
- }, { 
-   tableName: 'enswers',
-   timestamps: false, 
  });
 
 
