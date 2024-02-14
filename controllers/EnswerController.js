@@ -10,7 +10,7 @@ class EnswersController {
         } catch (error) {
             console.error('Error saving enswer:', error);
             res.status(400).json({ error: error.message });
-            console.log("noGodd");
+            console.log(" השגיאה חלה בשליחת התשובה למשתמש ");
         }
         
     }
@@ -22,16 +22,12 @@ class EnswersController {
 
   } catch (error) {
     console.log(error);
+    console.log(" השגיאה חלה בקבלת התשובות (והשאלות) להצגתן ");
+
   }
 
 
     }
-
-
-
-
-
-
 
     }
 

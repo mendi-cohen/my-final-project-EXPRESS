@@ -14,6 +14,7 @@ class QuestionsController {
             res.status(201).json({ message: "Question added successfully" });
         
         } catch (error) {
+            console.log(" השגיאה חלה בשליחת שאלת המשתמש לשרת ");
             console.error('Error saving question:', error);
             res.status(400).json({ error: error.message });
         }
@@ -26,6 +27,7 @@ class QuestionsController {
 
 
   } catch (error) {
+    console.log(" השגיאה חלה בקבלת שאלת המשתמש מהשרת ");
     console.log(error);
   }
 

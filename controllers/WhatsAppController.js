@@ -16,6 +16,8 @@ class WhatsAppController {
       } catch (error) {
         console.log(error);
         res.status(500).json({ error: 'Internal Server Error' });
+        console.log("  השגיאה חלה בשליחת הוואצאפ לרב");
+
       }
     }
 
@@ -39,6 +41,7 @@ class WhatsAppController {
       } catch (error) {
         console.log(error);
         res.status(500).json({ error: 'Internal Server Error' });
+        console.log(" השגיאה חלה בשליחת התשובה בוואצאפ ");
       }
     }
   }

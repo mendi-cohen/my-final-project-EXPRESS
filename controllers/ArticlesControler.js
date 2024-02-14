@@ -16,6 +16,7 @@ class ArticelsControl {
         
         } catch (error) {
             console.error('Error saving article:', error);
+            console.log(" השגיאה חלה בשליחת המאמרים ");
             res.status(400).json({ error: error.message });
         }
 
@@ -29,6 +30,7 @@ class ArticelsControl {
             
     
           } catch (error) {
+            console.log(" השגיאה חלה בקבלת כל המאמרים ביחד ");
             console.log(error.message);
           }
         }
@@ -42,6 +44,8 @@ class ArticelsControl {
                 
             } catch (error) {
             console.log(error.message);
+            console.log(" השגיאה חלה בקבלת המאמרים אחד אחד  ");
+
                 
             }
         }

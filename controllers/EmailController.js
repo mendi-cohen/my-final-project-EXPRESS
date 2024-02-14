@@ -8,14 +8,14 @@ class EmailController {
     try {
       nodeoutlook.sendEmail({
         auth: {
-          user: "mcrambam770@gmail.com",
-          pass: "mcr12377070070",
+          user: `${process.env.EMAIL_NAME}`,
+          pass: `${process.env.EMAIL_PASS}`,
         },
-        from: 'mcrambam770@gmail.com',
+        from: `${process.env.EMAIL_NAME}`,
         to: toEmail,
         html: messageBody,
         text: 'This is text version!',
-        replyTo: 'mcrambam770@gmail.com',
+        replyTo: `${process.env.EMAIL_NAME}`,
         
         onError: (e) => {
           console.log(e);
