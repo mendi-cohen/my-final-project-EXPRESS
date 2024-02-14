@@ -14,10 +14,6 @@ const Enswer = sequelize.define('Enswer', {
      type: DataTypes.STRING,
      allowNull: false,
    },
-   date: {
-     type: DataTypes.STRING,
-     allowNull: false,
-   },
  });
 
 
